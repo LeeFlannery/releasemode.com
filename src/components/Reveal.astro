@@ -1,0 +1,74 @@
+---
+/**
+ * Reveal — scroll-triggered entrance animation powered by Motion.
+ *
+ * Usage:
+ *   <Reveal>...</Reveal>                  single element, spring reveal on enter
+ *   <Reveal group as="ul">...</Reveal>    stagger every [data-reveal] child in
+ *
+ * Everything is gated behind prefers-reduced-motion (see global.css + the
+ * inline script in Layout.astro): no-JS and reduced-motion users get the
+ * content fully visible, unanimated.
+ */
+interface Props {
+  as?: string;
+  class?: string;
+  group?: boolean;
+}
+const { as: Tag = 'div', class: className, group = false } = Astro.props;
+---
+
+{
+  group ? (
+    <Tag data-reveal-group class={className}>
+      <slot />
+    </Tag>
+  ) : (
+    <Tag data-reveal class={className}>
+      <slot />
+    </Tag>
+  )
+}
+
+<script>
+  import { inView, animate, stagger } from 'motion';
+
+  const allowed = window.matchMedia(
+    '(prefers-reduced-motion: no-preference)',
+  ).matches;
+
+  function setup() {
+    if (!allowed) return;
+
+    // Staggered groups: bring all [data-reveal] children in together.
+    inView(
+      '[data-reveal-group]',
+      (group) => {
+        const items = group.querySelectorAll(':scope [data-reveal]');
+        animate(
+          items,
+          { opacity: 1, y: 0 },
+          { duration: 0.7, delay: stagger(0.08), ease: [0.16, 1, 0.3, 1] },
+        );
+      },
+      { amount: 0.2 },
+    );
+
+    // Standalone reveals (springy single elements).
+    inView(
+      '[data-reveal]',
+      (el) => {
+        if (el.closest('[data-reveal-group]')) return;
+        animate(
+          el,
+          { opacity: 1, y: 0 },
+          { type: 'spring', stiffness: 120, damping: 18 },
+        );
+      },
+      { amount: 0.3 },
+    );
+  }
+
+  // Re-run after every view transition (ClientRouter), not just first load.
+  document.addEventListener('astro:page-load', setup);
+</script>

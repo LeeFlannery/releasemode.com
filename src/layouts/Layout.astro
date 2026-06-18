@@ -1,0 +1,49 @@
+---
+import '@fontsource-variable/inter';
+import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
+import { SEO } from 'astro-seo';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'ReleaseMode',
+  description = 'ReleaseMode — premium product and brand work.',
+} = Astro.props;
+
+const canonical = Astro.site
+  ? new URL(Astro.url.pathname, Astro.site).href
+  : Astro.url.href;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Hide reveal targets before first paint, but only when motion is
+         allowed. No-JS / reduced-motion visitors get fully visible content. -->
+    <script is:inline>
+      if (
+        window.matchMedia('(prefers-reduced-motion: no-preference)').matches
+      ) {
+        document.documentElement.classList.add('reveal-ready');
+      }
+    </script>
+
+    <SEO title={title} description={description} canonical={canonical} />
+
+    <!-- Animated page transitions, independent of the reveal layer. -->
+    <ClientRouter />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

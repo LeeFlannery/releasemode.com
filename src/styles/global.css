@@ -1,0 +1,29 @@
+@import 'tailwindcss';
+
+/* Tailwind v4 is CSS-first: design tokens live here in @theme, not a JS config. */
+@theme {
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+
+  --color-ink: #0a0a0a;
+  --color-paper: #fafafa;
+  --color-accent: #3b5bff;
+}
+
+html {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+/* --- Reveal base ---------------------------------------------------------
+   Elements marked data-reveal start hidden + offset; the Reveal island
+   animates them in via Motion. If JS never runs, or the user prefers
+   reduced motion, they must still be visible — so we only hide when the
+   island has taken over (html.reveal-ready) AND motion is allowed. */
+@media (prefers-reduced-motion: no-preference) {
+  html.reveal-ready [data-reveal] {
+    opacity: 0;
+    transform: translateY(1.5rem);
+    will-change: opacity, transform;
+  }
+}

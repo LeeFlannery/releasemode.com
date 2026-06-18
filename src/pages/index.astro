@@ -1,0 +1,46 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Reveal from '../components/Reveal.astro';
+
+const capabilities = [
+  'Brand systems',
+  'Product design',
+  'Motion & interaction',
+  'Launch sites',
+];
+---
+
+<Layout title="ReleaseMode" description="Premium product and brand work.">
+  <main
+    class="mx-auto flex min-h-screen max-w-3xl flex-col justify-center px-6 py-24"
+  >
+    <Reveal as="section">
+      <p class="text-accent text-sm font-medium tracking-widest uppercase">
+        Release Mode
+      </p>
+      <h1
+        class="mt-4 text-5xl font-semibold tracking-tight text-balance sm:text-6xl"
+      >
+        We ship work that feels released, not leaked.
+      </h1>
+      <p class="text-ink/70 mt-6 max-w-xl text-lg">
+        A studio for teams that treat the launch as part of the product.
+        Static-fast, quietly animated, built to last.
+      </p>
+    </Reveal>
+
+    <Reveal
+      group
+      as="ul"
+      class="bg-ink/10 mt-20 grid gap-px overflow-hidden rounded-xl sm:grid-cols-2"
+    >
+      {
+        capabilities.map((c) => (
+          <li data-reveal class="bg-paper p-6 text-lg font-medium">
+            {c}
+          </li>
+        ))
+      }
+    </Reveal>
+  </main>
+</Layout>
