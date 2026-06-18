@@ -18,7 +18,7 @@ html {
 /* --- Reveal base ---------------------------------------------------------
    Elements marked data-reveal start hidden + offset; the Reveal island
    animates them in via Motion. If JS never runs, or the user prefers
-   reduced motion, they must still be visible — so we only hide when the
+   reduced motion, they must still be visible, so we only hide when the
    island has taken over (html.reveal-ready) AND motion is allowed. */
 @media (prefers-reduced-motion: no-preference) {
   html.reveal-ready [data-reveal] {

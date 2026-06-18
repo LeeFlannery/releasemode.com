@@ -2,7 +2,7 @@
   "name": "releasemode",
   "type": "module",
   "version": "0.0.1",
-  "description": "The ReleaseMode.com marketing site — a premium, motion-driven Astro static build.",
+  "description": "The ReleaseMode.com marketing site: a premium, motion-driven Astro static build.",
   "license": "MIT",
   "engines": {
     "node": ">=22.12.0"
