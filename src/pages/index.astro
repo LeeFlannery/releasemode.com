@@ -49,7 +49,9 @@ const iconClass =
   description="I ship the useful thing first and earn trust before asking for the room. Engineering-led Developer Relations for teams that need a DevRel punch."
 >
   <!-- Announcement bar -->
-  <div class="bg-blue/5 text-ink/70 px-6 py-2 text-center text-sm">
+  <div
+    class="bg-blue/5 text-ink/70 px-6 py-2 text-center text-sm sm:px-8 lg:px-12"
+  >
     Questions? Contact
     <a href={`mailto:${email}`} class="text-ink hover:text-blue font-medium"
       >{email}</a
@@ -60,7 +62,7 @@ const iconClass =
   <div class="bg-brand">
     <!-- Header -->
     <header
-      class="mx-auto flex max-w-7xl items-center justify-between px-6 py-5"
+      class="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 sm:px-8 lg:px-12"
     >
       <a href="/" class="flex items-center gap-2 font-semibold tracking-tight">
         <Mark class="text-ink size-7" />
@@ -85,7 +87,7 @@ const iconClass =
 
     <!-- Hero -->
     <section
-      class="mx-auto grid min-h-[78vh] max-w-7xl items-center gap-8 px-6 pb-20 lg:grid-cols-2 lg:gap-12"
+      class="mx-auto grid max-w-7xl items-center gap-10 px-6 pt-8 pb-16 sm:px-8 lg:min-h-[78vh] lg:grid-cols-2 lg:gap-12 lg:px-12 lg:pt-0 lg:pb-20"
     >
       <div class="animate-fade-in-left">
         <h1
@@ -105,14 +107,17 @@ const iconClass =
           <p class="text-ink/60 mt-3 text-sm">30 minutes. No deck.</p>
         </div>
       </div>
-      <div class="animate-fade-in-right hidden lg:flex lg:justify-end">
-        <Mark class="w-full text-white" aria-label="Release Mode" />
+      <div class="animate-fade-in-right flex justify-center lg:justify-end">
+        <Mark
+          class="w-full max-w-xs text-white sm:max-w-sm lg:max-w-none"
+          aria-label="Release Mode"
+        />
       </div>
     </section>
   </div>
 
   <!-- Offerings -->
-  <section class="mx-auto max-w-5xl px-6 py-20 sm:py-28">
+  <section class="mx-auto max-w-5xl px-6 py-20 sm:px-8 sm:py-28 lg:px-12">
     <Reveal class="mx-auto mb-14 max-w-3xl text-center">
       <p class="text-blue text-base font-bold tracking-wide uppercase">
         What I Ship
@@ -144,7 +149,7 @@ const iconClass =
   </section>
 
   <!-- Positioning statement -->
-  <section class="mx-auto max-w-3xl px-6 py-12 text-center">
+  <section class="mx-auto max-w-3xl px-6 py-12 text-center sm:px-8 lg:px-12">
     <Reveal>
       <p class="text-2xl leading-snug font-semibold text-balance sm:text-3xl">
         Make the useful thing first. Developers trust what they can run, not
@@ -154,7 +159,7 @@ const iconClass =
   </section>
 
   <!-- Why -->
-  <section class="mx-auto max-w-5xl px-6 py-20 sm:py-28">
+  <section class="mx-auto max-w-5xl px-6 py-20 sm:px-8 sm:py-28 lg:px-12">
     <Reveal class="mx-auto mb-14 max-w-3xl text-center">
       <p class="text-blue text-base font-bold tracking-wide uppercase">
         Why Work with Release Mode
@@ -192,7 +197,7 @@ const iconClass =
   <ProofSection />
 
   <!-- CTA -->
-  <section class="mx-auto max-w-6xl px-6 py-12">
+  <section class="mx-auto max-w-6xl px-6 py-12 sm:px-8 lg:px-12">
     <Reveal
       as="div"
       class="bg-brand mx-auto max-w-3xl rounded-3xl p-8 text-center shadow-xl sm:p-12"
@@ -201,8 +206,8 @@ const iconClass =
         Ready to talk about solving your adoption problem?
       </h2>
       <p class="text-ink/70 mx-auto mt-4 max-w-xl text-lg">
-        Let's talk about how engineering-led DevRel earns trust with your
-        developer community.
+        Tell me where adoption is stuck, and I'll show you how engineering-led
+        DevRel earns your developers' trust.
       </p>
       <div class="mt-8 flex flex-col items-center gap-3">
         <Button href={schedule} target="_blank">Let's talk</Button>
@@ -212,7 +217,7 @@ const iconClass =
   </section>
 
   <!-- Footer -->
-  <footer class="mx-auto mt-8 max-w-6xl px-6 py-16">
+  <footer class="mx-auto mt-8 max-w-6xl px-6 py-16 sm:px-8 lg:px-12">
     <div
       class="border-ink/10 grid gap-10 border-t pt-12 sm:grid-cols-2 lg:grid-cols-4"
     >
@@ -230,6 +235,17 @@ const iconClass =
         <ul class="text-ink/70 mt-4 space-y-3">
           <li>
             <a href={`mailto:${email}`} class="hover:text-blue">Contact</a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/leeflannery"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="hover:text-blue inline-flex items-center gap-1.5"
+            >
+              <Icon name="tabler:brand-github" class="size-4" />
+              GitHub
+            </a>
           </li>
         </ul>
       </div>
