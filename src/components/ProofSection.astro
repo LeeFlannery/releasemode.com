@@ -1,0 +1,133 @@
+---
+import Reveal from './Reveal.astro';
+import { Icon } from 'astro-icon/components';
+
+// Proof, not promises: a real metric, three clonable/watchable artifacts, and a
+// testimonial. The thesis ("show the artifact, not the deck") made literal.
+const metric = {
+  value: '116K+',
+  label: 'developers reached',
+  context:
+    "One post on Anthropic acquiring Bun. The goal isn't impressions. It's making developers care enough to have an opinion.",
+};
+
+const artifacts = [
+  {
+    title: 'Morning Agents',
+    blurb:
+      'Open-source multi-agent daily briefing system. Python agents, TypeScript MCP servers over stdio, Pydantic contracts. Built in public, with published docs.',
+    tags: ['Python', 'MCP', 'Pydantic', 'TypeScript'],
+    links: [
+      { label: 'Docs', href: 'https://leeflannery.github.io/morning-agents/' },
+      { label: 'Code', href: 'https://github.com/leeflannery/morning-agents' },
+    ],
+  },
+  {
+    title: 'Love Taps',
+    blurb:
+      'A relationship check-in app shipped end to end: live site, source, and a video walkthrough of the build and the decisions behind it.',
+    tags: ['Next.js', 'TypeScript', 'Tailwind', 'Framer Motion'],
+    links: [
+      { label: 'Live', href: 'https://v0-love-taps.vercel.app/' },
+      { label: 'Code', href: 'https://github.com/LeeFlannery/v0-love-taps' },
+      { label: 'Video', href: 'https://youtu.be/24PM-YGcrhI' },
+    ],
+  },
+  {
+    title: 'Full Stack Drip',
+    blurb:
+      'The content engine: essays and code-first videos that take developers from idea to working prototype. 29 public repos behind it.',
+    tags: ['Essays', 'Video', 'Open source'],
+    links: [
+      { label: 'Read', href: 'https://fullstackdrip.com' },
+      { label: 'Watch', href: 'https://www.youtube.com/@FullStackDrip' },
+      { label: 'GitHub', href: 'https://github.com/leeflannery' },
+    ],
+  },
+];
+
+// Verbatim quote (as published on leeflannery.com). Do not restyle a real
+// quotation — em dash stays; house style does not apply inside quotes.
+const testimonial = {
+  quote:
+    "This was an incredible submission. Really put a lot of time and effort into this — super creative build. He's doing some amazing work and videos on his YouTube as well. Big shout out.",
+  source: 'Contra × Wispr Flow Challenge judges',
+};
+---
+
+<section class="mx-auto max-w-5xl px-6 py-20 sm:py-28">
+  <Reveal class="mx-auto mb-12 max-w-3xl text-center">
+    <p class="text-blue text-base font-bold tracking-wide uppercase">
+      Proof, not promises
+    </p>
+    <h2 class="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
+      Don't take my word for it. Clone it.
+    </h2>
+    <p class="text-ink/70 mx-auto mt-4 max-w-2xl text-lg">
+      Same idea as the pitch: the artifact does the talking. Here is work you
+      can run, read, or watch right now, and what happens when developers engage
+      with it.
+    </p>
+  </Reveal>
+
+  <!-- Metric -->
+  <Reveal class="border-blue mx-auto mb-14 max-w-2xl border-l-4 pl-6">
+    <p class="flex flex-wrap items-baseline gap-x-3">
+      <span class="text-5xl font-bold tracking-tight sm:text-6xl">
+        {metric.value}
+      </span>
+      <span class="text-lg font-semibold">{metric.label}</span>
+    </p>
+    <p class="text-ink/70 mt-3 max-w-xl">{metric.context}</p>
+  </Reveal>
+
+  <!-- Artifacts -->
+  <Reveal group as="ul" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    {
+      artifacts.map((a) => (
+        <li
+          data-reveal
+          class="card-hover border-ink/10 flex flex-col rounded-2xl border bg-white p-6"
+        >
+          <h3 class="text-xl font-bold">{a.title}</h3>
+          <p class="text-ink/70 mt-2 flex-1">{a.blurb}</p>
+          <ul class="mt-4 flex flex-wrap gap-2">
+            {a.tags.map((t) => (
+              <li class="border-ink/15 text-ink/60 rounded-full border px-2.5 py-0.5 text-xs font-semibold tracking-wide uppercase">
+                {t}
+              </li>
+            ))}
+          </ul>
+          <div class="mt-5 flex flex-wrap gap-x-5 gap-y-2">
+            {a.links.map((l) => (
+              <a
+                href={l.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-blue inline-flex items-center gap-1 font-semibold hover:underline"
+              >
+                {l.label}
+                <Icon name="tabler:arrow-up-right" class="size-4" />
+              </a>
+            ))}
+          </div>
+        </li>
+      ))
+    }
+  </Reveal>
+
+  <!-- Testimonial -->
+  <Reveal
+    as="figure"
+    class="border-ink/10 mx-auto mt-16 max-w-2xl border-t pt-10 text-center"
+  >
+    <blockquote
+      class="text-xl leading-relaxed font-medium text-balance sm:text-2xl"
+    >
+      “{testimonial.quote}”
+    </blockquote>
+    <figcaption class="text-ink/60 mt-4 font-semibold">
+      {testimonial.source}
+    </figcaption>
+  </Reveal>
+</section>
