@@ -78,14 +78,18 @@ const iconClass =
   </header>
 
   <!-- Hero -->
-  <section class="mx-auto max-w-7xl px-6 py-12 lg:py-20">
-    <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-12">
-      <div class="animate-fade-in-left">
+  <section class="relative overflow-hidden">
+    <Mark
+      class="pointer-events-none absolute top-1/2 right-0 hidden w-[44rem] translate-x-[20%] -translate-y-1/2 text-white md:block lg:w-[54rem]"
+      aria-hidden="true"
+    />
+    <div class="relative mx-auto max-w-7xl px-6 py-16 lg:py-28">
+      <div class="animate-fade-in-left max-w-3xl">
         <h1
           class="text-5xl leading-[1.03] font-bold tracking-tight sm:text-6xl lg:text-7xl"
         >
           Engineering&#8209;Led<br />
-          <span class="text-blue">Developer Relations</span>
+          <span class="text-blue whitespace-nowrap">Developer Relations</span>
         </h1>
         <p class="text-ink/70 mt-6 max-w-xl text-lg sm:text-xl">
           Digital transformation firms sell the meeting before the artifact.
@@ -98,12 +102,6 @@ const iconClass =
             Schedule a Strategy Session
           </Button>
         </div>
-      </div>
-      <div class="animate-fade-in-right">
-        <Mark
-          class="text-ink mx-auto w-full max-w-sm lg:max-w-md"
-          aria-label="Release Mode"
-        />
       </div>
     </div>
   </section>
@@ -237,9 +235,13 @@ const iconClass =
           <li>
             <a href={`mailto:${email}`} class="hover:text-blue">Email Lee</a>
           </li>
-          {/* TODO(round 2): real About page */}
           <li>
-            <a href="#" class="hover:text-blue">About Founder Lee Flannery</a>
+            <a
+              href="https://leeflannery.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="hover:text-blue">About Founder Lee Flannery</a
+            >
           </li>
         </ul>
       </div>
