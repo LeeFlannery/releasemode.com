@@ -87,9 +87,14 @@ const iconClass =
 
     <!-- Hero -->
     <section
-      class="mx-auto grid max-w-7xl items-center gap-10 px-6 pt-8 pb-16 sm:px-8 lg:min-h-[78vh] lg:grid-cols-2 lg:gap-12 lg:px-12 lg:pt-0 lg:pb-20"
+      class="relative mx-auto grid max-w-7xl items-center gap-10 overflow-hidden px-6 pt-8 pb-16 sm:px-8 lg:min-h-[78vh] lg:grid-cols-2 lg:gap-12 lg:px-12 lg:pt-0 lg:pb-20"
     >
-      <div class="animate-fade-in-left">
+      <!-- Small screens: the mark sits behind the text (z-axis background). -->
+      <Mark
+        class="pointer-events-none absolute top-1/2 right-0 w-[26rem] max-w-[85%] translate-x-[12%] -translate-y-1/2 text-white/80 lg:hidden"
+        aria-hidden="true"
+      />
+      <div class="animate-fade-in-left relative z-10">
         <h1
           class="text-5xl leading-[1.03] font-bold tracking-tight sm:text-6xl"
         >
@@ -107,11 +112,9 @@ const iconClass =
           <p class="text-ink/60 mt-3 text-sm">30 minutes. No deck.</p>
         </div>
       </div>
-      <div class="animate-fade-in-right flex justify-center lg:justify-end">
-        <Mark
-          class="w-full max-w-xs text-white sm:max-w-sm lg:max-w-none"
-          aria-label="Release Mode"
-        />
+      <!-- Desktop: the mark gets its own column beside the text. -->
+      <div class="animate-fade-in-right hidden lg:flex lg:justify-end">
+        <Mark class="w-full text-white" aria-label="Release Mode" />
       </div>
     </section>
   </div>
