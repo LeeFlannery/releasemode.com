@@ -11,8 +11,8 @@ const schedule = 'https://cal.com/releasemode-lee/officehours';
 const offerings = [
   {
     icon: 'tabler:code',
-    title: 'Repo + video',
-    body: 'A reference implementation your developers can run, plus a walkthrough that teaches the tradeoffs.',
+    title: 'Reference repo + video',
+    body: 'A working implementation your team clones and runs, with a walkthrough of the decisions and tradeoffs behind it.',
   },
   {
     icon: 'tabler:player-play',
@@ -25,7 +25,7 @@ const reasons = [
   {
     icon: 'tabler:rocket',
     title: 'I ship',
-    body: 'I write code daily and build the reference implementations myself. Your developers get someone who gets it.',
+    body: 'I write code daily and build the reference implementations myself, so I meet your developers as a peer who shares their constraints.',
   },
   {
     icon: 'tabler:arrows-exchange',
@@ -55,38 +55,40 @@ const iconClass =
     >.
   </div>
 
-  <!-- Header -->
-  <header class="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
-    <a href="/" class="flex items-center gap-2 font-semibold tracking-tight">
-      <Mark class="text-ink size-7" />
-      Release Mode
-    </a>
-    <nav class="flex items-center gap-5 text-sm">
-      <a href={`mailto:${email}`} class="text-ink/80 hover:text-ink font-medium"
-        >Contact</a
-      >
-      <Button
-        href={schedule}
-        target="_blank"
-        variant="ghost"
-        icon={null}
-        compact
-      >
-        Schedule Call
-      </Button>
-    </nav>
-  </header>
+  <!-- Top band (yellow): header + hero -->
+  <div class="bg-brand">
+    <!-- Header -->
+    <header
+      class="mx-auto flex max-w-7xl items-center justify-between px-6 py-5"
+    >
+      <a href="/" class="flex items-center gap-2 font-semibold tracking-tight">
+        <Mark class="size-7 text-white" />
+        Release Mode
+      </a>
+      <nav class="flex items-center gap-5 text-sm">
+        <a
+          href={`mailto:${email}`}
+          class="text-ink/80 hover:text-ink font-medium">Contact</a
+        >
+        <Button
+          href={schedule}
+          target="_blank"
+          variant="ghost"
+          icon={null}
+          compact
+        >
+          Schedule Call
+        </Button>
+      </nav>
+    </header>
 
-  <!-- Hero -->
-  <section class="relative overflow-hidden">
-    <Mark
-      class="pointer-events-none absolute top-1/2 right-0 hidden w-[44rem] translate-x-[20%] -translate-y-1/2 text-white md:block lg:w-[54rem]"
-      aria-hidden="true"
-    />
-    <div class="relative mx-auto max-w-7xl px-6 py-16 lg:py-28">
-      <div class="animate-fade-in-left max-w-3xl">
+    <!-- Hero -->
+    <section
+      class="mx-auto grid min-h-[78vh] max-w-7xl items-center gap-8 px-6 pb-20 lg:grid-cols-2 lg:gap-12"
+    >
+      <div class="animate-fade-in-left">
         <h1
-          class="text-5xl leading-[1.03] font-bold tracking-tight sm:text-6xl lg:text-7xl"
+          class="text-5xl leading-[1.03] font-bold tracking-tight sm:text-6xl"
         >
           Engineering&#8209;Led<br />
           <span class="text-blue whitespace-nowrap">Developer Relations</span>
@@ -103,8 +105,14 @@ const iconClass =
           </Button>
         </div>
       </div>
-    </div>
-  </section>
+      <div class="animate-fade-in-right hidden lg:block">
+        <Mark
+          class="mx-auto w-full max-w-md text-white"
+          aria-label="Release Mode"
+        />
+      </div>
+    </section>
+  </div>
 
   <!-- Offerings -->
   <section class="mx-auto max-w-5xl px-6 py-20 sm:py-28">
@@ -113,16 +121,20 @@ const iconClass =
         What I Ship
       </p>
       <h2 class="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
-        What a DevRel punch looks like
+        You get the artifact, not a deck
       </h2>
       <p class="text-ink/70 mt-4 text-lg">
-        Not a strategy deck. The actual artifact your developers use.
+        Every engagement ends in something your developers can clone, read, or
+        watch. Not a slide about it.
       </p>
     </Reveal>
     <Reveal group as="ul" class="grid gap-8 sm:grid-cols-2 md:gap-y-12">
       {
         offerings.map((o) => (
-          <li data-reveal class="flex max-w-md flex-row gap-4">
+          <li
+            data-reveal
+            class="card-hover bg-brand flex flex-row gap-4 rounded-2xl p-6 md:p-8"
+          >
             <Icon name={o.icon} class={iconClass} />
             <div>
               <h3 class="text-xl font-bold md:text-[1.3rem]">{o.title}</h3>
@@ -138,8 +150,8 @@ const iconClass =
   <section class="mx-auto max-w-3xl px-6 py-12 text-center">
     <Reveal>
       <p class="text-2xl leading-snug font-semibold text-balance sm:text-3xl">
-        Stop selling the meeting. If your best asset is still a strategy deck,
-        you're not educating developers. You're selling one.
+        Make the useful thing first. Developers trust what they can run, not
+        what they're shown. Let the work earn the room.
       </p>
     </Reveal>
   </section>
@@ -164,7 +176,10 @@ const iconClass =
     >
       {
         reasons.map((r) => (
-          <li data-reveal class="flex max-w-md flex-row gap-4">
+          <li
+            data-reveal
+            class="card-hover bg-brand flex flex-row gap-4 rounded-2xl p-6 md:p-8"
+          >
             <Icon name={r.icon} class={iconClass} />
             <div>
               <h3 class="text-xl font-bold md:text-[1.3rem]">{r.title}</h3>
@@ -180,7 +195,7 @@ const iconClass =
   <section class="mx-auto max-w-6xl px-6 py-12">
     <Reveal
       as="div"
-      class="bg-paper/40 mx-auto max-w-3xl rounded-2xl p-8 text-center shadow-xl sm:p-12"
+      class="bg-brand mx-auto max-w-3xl rounded-3xl p-8 text-center shadow-xl sm:p-12"
     >
       <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">
         Ready to talk about solving your adoption problem?

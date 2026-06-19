@@ -6,15 +6,16 @@
   --font-mono: 'JetBrains Mono Variable', ui-monospace, 'SF Mono', monospace;
 
   --color-ink: #0a0a0a; /* text */
-  --color-paper: #fafafa; /* cards / inverted text */
-  --color-brand: #fbcc4c; /* Release yellow: the page surface */
+  --color-paper: #fafafa; /* white glyphs / inverted text */
+  --color-page: #faf9f6; /* warm paper: the page background */
+  --color-brand: #fbcc4c; /* Release yellow: accent surfaces */
   --color-blue: #0070f3; /* Release Blue: all interactive controls */
 }
 
-/* Brand rule: yellow is the background, ink is the type,
-   Release Blue is every button / control. */
+/* Brand rule: the page is white; Release yellow is an accent surface
+   (header, hero band, boxes); ink is the type; Release Blue is every control. */
 html {
-  background-color: var(--color-brand);
+  background-color: var(--color-page);
   color: var(--color-ink);
   font-family: var(--font-sans);
 }
