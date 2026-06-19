@@ -63,7 +63,7 @@ const iconClass =
       class="mx-auto flex max-w-7xl items-center justify-between px-6 py-5"
     >
       <a href="/" class="flex items-center gap-2 font-semibold tracking-tight">
-        <Mark class="size-7 text-white" />
+        <Mark class="text-ink size-7" />
         Release Mode
       </a>
       <nav class="flex items-center gap-5 text-sm">
@@ -78,7 +78,7 @@ const iconClass =
           icon={null}
           compact
         >
-          Schedule Call
+          Let's talk
         </Button>
       </nav>
     </header>
@@ -101,16 +101,12 @@ const iconClass =
           earn trust before asking for the room.
         </p>
         <div class="mt-10">
-          <Button href={schedule} target="_blank">
-            Schedule a Strategy Session
-          </Button>
+          <Button href={schedule} target="_blank">Let's talk</Button>
+          <p class="text-ink/60 mt-3 text-sm">30 minutes. No deck.</p>
         </div>
       </div>
-      <div class="animate-fade-in-right hidden lg:block">
-        <Mark
-          class="mx-auto w-full max-w-md text-white"
-          aria-label="Release Mode"
-        />
+      <div class="animate-fade-in-right hidden lg:flex lg:justify-end">
+        <Mark class="w-full text-white" aria-label="Release Mode" />
       </div>
     </section>
   </div>
@@ -208,10 +204,9 @@ const iconClass =
         Let's talk about how engineering-led DevRel earns trust with your
         developer community.
       </p>
-      <div class="mt-8 flex justify-center">
-        <Button href={schedule} target="_blank">
-          Schedule a Strategy Session
-        </Button>
+      <div class="mt-8 flex flex-col items-center gap-3">
+        <Button href={schedule} target="_blank">Let's talk</Button>
+        <p class="text-ink/70 text-sm">30 minutes. No deck.</p>
       </div>
     </Reveal>
   </section>
