@@ -1,46 +1,222 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import Reveal from '../components/Reveal.astro';
+import Button from '../components/Button.astro';
+import { Icon } from 'astro-icon/components';
+import Mark from '../assets/brand/mark.svg';
+import heroLockup from '../assets/images/hero.png';
 
-const capabilities = [
-  'Brand systems',
-  'Product design',
-  'Motion & interaction',
-  'Launch sites',
+const email = 'lee@releasemode.com';
+const schedule = 'https://cal.com/releasemode-lee/officehours';
+
+const offerings = [
+  {
+    icon: 'tabler:code',
+    title: 'Repo + video',
+    body: 'A reference implementation your developers can run, plus a walkthrough that teaches the tradeoffs.',
+  },
+  {
+    icon: 'tabler:player-play',
+    title: 'A set of shorts',
+    body: 'Short, sharp video lessons that build trust and adoption without standing up a content team.',
+  },
+];
+
+const reasons = [
+  {
+    icon: 'tabler:rocket',
+    title: 'I ship',
+    body: 'I write code daily and build the reference implementations myself. Your developers get someone who gets it.',
+  },
+  {
+    icon: 'tabler:arrows-exchange',
+    title: 'I translate',
+    body: 'I debug with your engineers in the morning and frame DevRel ROI for leadership in the afternoon.',
+  },
+  {
+    icon: 'tabler:school',
+    title: 'I teach',
+    body: "The goal isn't dependence on me. I leave your team able to keep earning developer trust on their own.",
+  },
 ];
 ---
 
-<Layout title="ReleaseMode" description="Premium product and brand work.">
-  <main
-    class="mx-auto flex min-h-screen max-w-3xl flex-col justify-center px-6 py-24"
-  >
-    <Reveal as="section">
-      <p class="text-accent text-sm font-medium tracking-widest uppercase">
-        Release Mode
-      </p>
-      <h1
-        class="mt-4 text-5xl font-semibold tracking-tight text-balance sm:text-6xl"
+<Layout
+  title="Release Mode | Engineering-Led Developer Relations"
+  description="I ship the useful thing first and earn trust before asking for the room. Engineering-led Developer Relations for teams that need a DevRel punch."
+>
+  <!-- Announcement bar -->
+  <div class="bg-blue/5 text-ink/70 px-6 py-2 text-center text-sm">
+    Questions? Contact
+    <a href={`mailto:${email}`} class="text-ink hover:text-blue font-medium"
+      >{email}</a
+    >.
+  </div>
+
+  <!-- Header -->
+  <header class="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
+    <a href="/" class="flex items-center gap-2 font-semibold tracking-tight">
+      <Mark class="text-ink size-7" />
+      Release Mode
+    </a>
+    <nav class="flex items-center gap-5 text-sm">
+      <a href={`mailto:${email}`} class="text-ink/80 hover:text-ink font-medium"
+        >Contact</a
       >
-        Engineering Led Developer Relations.
-      </h1>
-      <p class="text-ink/70 mt-6 max-w-xl text-lg">
-        A studio for teams that treat the launch as part of the product.
-        Static-fast, quietly animated, built to last.
+      <Button
+        href={schedule}
+        target="_blank"
+        variant="ghost"
+        icon={null}
+        compact
+      >
+        Schedule Call
+      </Button>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="mx-auto max-w-7xl px-6 py-12 lg:py-20">
+    <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-12">
+      <div class="animate-fade-in-left">
+        <h1
+          class="text-5xl font-bold tracking-tighter text-balance sm:text-6xl lg:text-7xl"
+        >
+          Engineering-Led <span class="text-blue">Developer Relations</span>
+        </h1>
+        <p class="text-ink/70 mt-6 max-w-xl text-lg sm:text-xl">
+          Digital transformation firms sell the meeting before the artifact.
+          Engineering-led DevRel flips that: show the code, explain the
+          tradeoffs, publish the docs, build the reference implementation, and
+          earn trust before asking for the room.
+        </p>
+        <div class="mt-10">
+          <Button href={schedule} target="_blank">
+            Schedule a Strategy Session
+          </Button>
+        </div>
+      </div>
+      <div class="animate-fade-in-right">
+        <Image
+          src={heroLockup}
+          alt="Release Mode"
+          loading="eager"
+          class="mx-auto w-full max-w-md lg:max-w-lg"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Offerings -->
+  <section class="mx-auto max-w-6xl px-6 py-20 sm:py-28">
+    <Reveal class="mx-auto max-w-2xl text-center">
+      <p class="text-blue font-mono text-sm tracking-wide">// what i ship</p>
+      <h2 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
+        What a DevRel punch looks like
+      </h2>
+      <p class="text-ink/70 mt-4 text-lg">
+        Not a strategy deck. The actual artifact your developers use.
       </p>
     </Reveal>
-
-    <Reveal
-      group
-      as="ul"
-      class="bg-ink/10 mt-20 grid gap-px overflow-hidden rounded-xl sm:grid-cols-2"
-    >
+    <Reveal group as="ul" class="mt-14 grid gap-6 sm:grid-cols-2">
       {
-        capabilities.map((c) => (
-          <li data-reveal class="bg-paper p-6 text-lg font-medium">
-            {c}
+        offerings.map((o) => (
+          <li
+            data-reveal
+            class="card-hover border-ink/10 bg-paper rounded-2xl border p-8"
+          >
+            <div class="bg-blue/10 text-blue inline-flex size-12 items-center justify-center rounded-xl">
+              <Icon name={o.icon} class="size-6" />
+            </div>
+            <h3 class="mt-5 text-xl font-semibold">{o.title}</h3>
+            <p class="text-ink/70 mt-2">{o.body}</p>
           </li>
         ))
       }
     </Reveal>
-  </main>
+  </section>
+
+  <!-- Positioning statement -->
+  <section class="mx-auto max-w-3xl px-6 py-12 text-center">
+    <Reveal>
+      <p class="text-2xl leading-snug font-semibold text-balance sm:text-3xl">
+        Stop selling the meeting. If your best asset is still a strategy deck,
+        you're not educating developers. You're selling one.
+      </p>
+    </Reveal>
+  </section>
+
+  <!-- Why -->
+  <section class="mx-auto max-w-6xl px-6 py-20 sm:py-28">
+    <Reveal class="mx-auto max-w-2xl text-center">
+      <p class="text-blue font-mono text-sm tracking-wide">
+        // why work with me
+      </p>
+      <h2 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
+        Why work with me
+      </h2>
+    </Reveal>
+    <Reveal group as="ul" class="mt-14 grid gap-6 sm:grid-cols-3">
+      {
+        reasons.map((r) => (
+          <li
+            data-reveal
+            class="card-hover border-ink/10 bg-paper rounded-2xl border p-8"
+          >
+            <div class="bg-blue/10 text-blue inline-flex size-12 items-center justify-center rounded-xl">
+              <Icon name={r.icon} class="size-6" />
+            </div>
+            <h3 class="mt-5 text-xl font-semibold">{r.title}</h3>
+            <p class="text-ink/70 mt-2">{r.body}</p>
+          </li>
+        ))
+      }
+    </Reveal>
+  </section>
+
+  <!-- CTA -->
+  <section class="mx-auto max-w-6xl px-6 py-12">
+    <Reveal
+      as="div"
+      class="bg-ink text-paper relative overflow-hidden rounded-3xl px-8 py-16 text-center sm:px-16 sm:py-20"
+    >
+      <Mark
+        class="text-paper/[0.04] pointer-events-none absolute -right-16 -bottom-24 size-80"
+      />
+      <h2 class="relative text-3xl font-bold tracking-tight sm:text-4xl">
+        Got an adoption problem?
+      </h2>
+      <p class="text-paper/70 relative mx-auto mt-4 max-w-xl text-lg">
+        Let's talk about how engineering-led DevRel earns trust with your
+        developers.
+      </p>
+      <div class="relative mt-8 flex justify-center">
+        <Button href={schedule} target="_blank">
+          Schedule a Strategy Session
+        </Button>
+      </div>
+    </Reveal>
+  </section>
+
+  <!-- Footer -->
+  <footer class="mx-auto max-w-6xl px-6 py-16">
+    <p class="max-w-md text-lg font-medium text-balance">
+      I show the code. I earn trust before asking for the room.
+    </p>
+    <div
+      class="border-ink/10 text-ink/60 mt-8 flex flex-col gap-4 border-t pt-8 text-sm sm:flex-row sm:items-center sm:justify-between"
+    >
+      <p>© 2026 Release Mode. Engineering-Led Developer Relations.</p>
+      <nav class="flex gap-6">
+        <a href={`mailto:${email}`} class="hover:text-ink">Email</a>
+        <a
+          href={schedule}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hover:text-ink">Schedule a call</a
+        >
+      </nav>
+    </div>
+  </footer>
 </Layout>

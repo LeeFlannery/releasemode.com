@@ -1,0 +1,39 @@
+---
+import { Icon } from 'astro-icon/components';
+
+/**
+ * Release Mode button.
+ *  - variant="primary" (default): blue glow pill, lifts on hover (.btn-blue)
+ *  - variant="ghost": outline pill (.btn-ghost), for secondary actions
+ * Mirrors the live releasemode.com Button (Tabler icon, rounded-full).
+ */
+interface Props {
+  href: string;
+  icon?: string | null;
+  variant?: 'primary' | 'ghost';
+  compact?: boolean;
+  target?: string;
+  class?: string;
+}
+const {
+  href,
+  icon = 'tabler:calendar',
+  variant = 'primary',
+  compact = false,
+  target,
+  class: className,
+} = Astro.props;
+---
+
+<a
+  href={href}
+  {...target ? { target, rel: 'noopener noreferrer' } : {}}
+  class:list={[
+    variant === 'ghost' ? 'btn-ghost' : 'btn-blue',
+    compact ? 'px-5 py-2 text-sm' : 'px-7 py-3.5',
+    className,
+  ]}
+>
+  <slot />
+  {icon && <Icon name={icon} class="size-5" />}
+</a>
