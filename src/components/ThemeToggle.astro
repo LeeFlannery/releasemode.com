@@ -1,0 +1,77 @@
+---
+/*
+ * Dev/AB theme switcher. Flips html[data-theme] between "signal" and "press",
+ * persists the choice to localStorage, and keeps the URL's ?theme= in sync so a
+ * given skin is shareable. The no-flash assignment happens in Layout's <head>;
+ * this is just the on-page control. Neutral styling so it reads as a tool, not
+ * site chrome — easy to gate behind an env flag or remove once testing is done.
+ */
+---
+
+<div
+  id="theme-toggle"
+  class="fixed right-4 bottom-4 z-50 hidden items-center gap-1 rounded-full border border-white/10 bg-neutral-900/90 p-1 font-mono text-xs text-white/60 shadow-lg backdrop-blur"
+  aria-label="Theme switcher (debug)"
+>
+  <span class="px-2 text-white/30 select-none">theme</span>
+  <button data-theme-set="signal" class="rounded-full px-3 py-1.5 transition"
+    >Signal</button
+  >
+  <button data-theme-set="press" class="rounded-full px-3 py-1.5 transition"
+    >Press</button
+  >
+</div>
+
+<script is:inline>
+  (function () {
+    // Debug control only: show on local dev hosts, never on the live site.
+    var h = location.hostname;
+    var isLocal =
+      h === 'localhost' ||
+      h === '127.0.0.1' ||
+      h === '[::1]' ||
+      h === '0.0.0.0' ||
+      h.endsWith('.local');
+    if (!isLocal) return;
+
+    function syncToggle() {
+      var current =
+        document.documentElement.getAttribute('data-theme') || 'signal';
+      document.querySelectorAll('[data-theme-set]').forEach(function (btn) {
+        var active = btn.getAttribute('data-theme-set') === current;
+        btn.classList.toggle('bg-white', active);
+        btn.classList.toggle('text-neutral-900', active);
+        btn.classList.toggle('font-bold', active);
+      });
+    }
+
+    function setTheme(name) {
+      document.documentElement.setAttribute('data-theme', name);
+      try {
+        localStorage.setItem('rm-theme', name);
+        var url = new URL(location.href);
+        url.searchParams.set('theme', name);
+        history.replaceState(null, '', url);
+      } catch (e) {}
+      syncToggle();
+    }
+
+    function wire() {
+      var el = document.getElementById('theme-toggle');
+      if (el) {
+        el.classList.remove('hidden');
+        el.classList.add('flex');
+      }
+      document.querySelectorAll('[data-theme-set]').forEach(function (btn) {
+        btn.onclick = function () {
+          setTheme(btn.getAttribute('data-theme-set'));
+        };
+      });
+      syncToggle();
+    }
+
+    wire();
+    // Survive ClientRouter navigations.
+    document.addEventListener('astro:page-load', wire);
+  })();
+</script>

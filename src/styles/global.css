@@ -1,28 +1,78 @@
 @import 'tailwindcss';
 
-/* Tailwind v4 is CSS-first: design tokens live here in @theme, not a JS config. */
+/* ===========================================================================
+   DESIGN SYSTEM — two themes, one set of semantic tokens.
+
+   Components never hardcode a color or font. They use semantic utilities
+   (bg-brand, text-ink, bg-blue, font-display, …) which compile to
+   var(--color-*) / var(--font-*). The DEFAULT theme ("Signal") lives in
+   @theme below. Alternate themes (e.g. "Press") just reassign the same
+   variables under html[data-theme="…"], so flipping one attribute on <html>
+   reskins the entire site with zero component edits.
+
+   - Signal  → current brand: yellow surface, Release Blue, glow + pill, sans.
+   - Press   → editorial:      warm paper, deep ink-blue, hairline rules, serif.
+
+   Switch live with ?theme=press (persisted) or the on-page toggle.
+   =========================================================================== */
+
 @theme {
-  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  /* Type — semantic roles, not typeface names. Themes swap the faces. */
+  --font-display: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-body); /* back-compat alias */
   --font-mono: 'JetBrains Mono Variable', ui-monospace, 'SF Mono', monospace;
 
-  --color-ink: #0a0a0a; /* text */
-  --color-paper: #fafafa; /* white glyphs / inverted text */
-  --color-page: #faf9f6; /* warm paper: the page background */
-  --color-brand: #fbcc4c; /* Release yellow: accent surfaces */
-  --color-blue: #0070f3; /* Release Blue: all interactive controls */
+  /* Color — semantic roles. */
+  --color-ink: #0a0a0a; /* type */
+  --color-paper: #fafafa; /* glyphs on dark / inverted text (e.g. on blue) */
+  --color-page: #faf9f6; /* the page background */
+  --color-brand: #fbcc4c; /* accent SURFACE (hero band, cards, CTA box) */
+  --color-blue: #0070f3; /* every interactive control */
+  --color-highlight: #fbcc4c; /* Release yellow as a highlight accent */
+  --color-rule: rgb(10 10 10 / 0.1); /* hairline dividers / borders */
 }
 
-/* Brand rule: the page is white; Release yellow is an accent surface
-   (header, hero band, boxes); ink is the type; Release Blue is every control. */
+/* --- Theme: Press (editorial) -------------------------------------------- */
+html[data-theme='press'] {
+  --font-display: 'Archivo Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Newsreader Variable', Georgia, 'Times New Roman', serif;
+  --font-sans: var(--font-body);
+
+  --color-ink: #16140f; /* warm near-black */
+  --color-paper: #fbfaf6; /* light text on the blue */
+  --color-page: #fbfaf6; /* warm paper */
+  --color-brand: #f2efe6; /* accent surface → soft paper panel, not yellow */
+  --color-blue: #0070f3; /* Release Blue stays the accent (not the card's deep blue) */
+  --color-highlight: #fbcc4c; /* Release yellow → highlight accent */
+  --color-rule: #dcd7ca; /* warm hairline */
+}
+
+/* ===========================================================================
+   BASE
+   =========================================================================== */
 html {
   background-color: var(--color-page);
   color: var(--color-ink);
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
+}
+/* Headings carry the display face; body copy carries the body face. In Signal
+   both are Inter (no visible split); in Press it's Archivo over Newsreader. */
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
 }
 
-/* Release Blue glow button (matches the live releasemode.com .btn-primary:
-   ambient blue glow at rest, lift + stronger glow on hover). Padding/size are
-   set per-instance via utility classes. */
+/* ===========================================================================
+   CONTROLS & SURFACES — Signal defaults, with Press variants scoped below.
+   (Plain rules, outside @layer, so they beat Tailwind utilities like
+   rounded-2xl / text-white without !important.)
+   =========================================================================== */
+
+/* Release Blue glow button: ambient glow at rest, lift + stronger glow on
+   hover. Padding/size set per-instance via utility classes. */
 .btn-blue {
   display: inline-flex;
   align-items: center;
@@ -43,16 +93,8 @@ html {
   box-shadow: 0 12px 32px rgba(0, 112, 243, 0.55);
   filter: brightness(1.05);
 }
-@media (prefers-reduced-motion: reduce) {
-  .btn-blue {
-    transition: none;
-  }
-  .btn-blue:hover {
-    transform: none;
-  }
-}
 
-/* Ghost / secondary control (outline pill) — header "Schedule Call". */
+/* Ghost / secondary control (outline pill). */
 .btn-ghost {
   display: inline-flex;
   align-items: center;
@@ -71,7 +113,7 @@ html {
   border-color: rgb(10 10 10 / 0.5);
 }
 
-/* Soft card lift on hover (matches the live site .card-hover). */
+/* Soft card lift on hover. */
 .card-hover {
   transition:
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
@@ -82,7 +124,112 @@ html {
   box-shadow: 0 20px 40px rgb(10 10 10 / 0.12);
 }
 
-/* Directional hero entrance (matches fade-in-left / fade-in-right). */
+/* Hero brand mark color — tokenised so each theme can place it differently.
+   Signal: bold white-on-yellow. Press: a faint ink watermark on warm paper. */
+.hero-mark {
+  color: #fff;
+}
+
+/* --- Press control/surface variants -------------------------------------- */
+/* Editorial = square corners, hairline rules, no glow, mono labels. */
+html[data-theme='press'] .btn-blue {
+  border-radius: 4px;
+  box-shadow: none;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.82em;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+html[data-theme='press'] .btn-blue:hover {
+  transform: none;
+  box-shadow: none;
+  filter: brightness(1.08);
+}
+html[data-theme='press'] .btn-ghost {
+  border-radius: 4px;
+  border-color: var(--color-rule);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.82em;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+html[data-theme='press'] .btn-ghost:hover {
+  background-color: rgb(22 20 15 / 0.04);
+  border-color: rgb(22 20 15 / 0.45);
+}
+html[data-theme='press'] .card-hover {
+  border: 1px solid var(--color-rule);
+  border-radius: 6px;
+}
+html[data-theme='press'] .card-hover:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: rgb(22 20 15 / 0.28);
+}
+html[data-theme='press'] .hero-mark {
+  color: rgb(22 20 15 / 0.06);
+}
+
+/* --- Press typography (rate-card feel) ----------------------------------- */
+/* Heavy, tight Archivo headlines like the rate card's "Engagement Rates". */
+html[data-theme='press'] h1,
+html[data-theme='press'] h2,
+html[data-theme='press'] h3 {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+/* Wordmark: uppercase, expanded, heavy Archivo with a Release-Blue dot. */
+html[data-theme='press'] .wordmark {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-stretch: 112%;
+  text-transform: uppercase;
+  letter-spacing: -0.005em;
+}
+html[data-theme='press'] .wordmark::after {
+  content: '.';
+  color: var(--color-blue);
+}
+
+/* Eyebrows: mono, letter-spaced, Release-Blue, with the "// " prefix. */
+html[data-theme='press'] .eyebrow {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+}
+html[data-theme='press'] .eyebrow::before {
+  content: '// ';
+}
+
+/* Meta lines (e.g. "30 minutes. No deck."): mono, Release-Blue. */
+html[data-theme='press'] .meta {
+  font-family: var(--font-mono);
+  letter-spacing: 0.02em;
+  color: var(--color-blue);
+}
+
+/* Hero phrase: Release yellow highlighter (ink text) instead of blue text, so
+   both brand colors show. box-decoration-break keeps the swipe clean across
+   the line wrap on small screens. */
+html[data-theme='press'] .hero-accent {
+  color: var(--color-ink);
+  background-image: linear-gradient(
+    transparent 8%,
+    var(--color-highlight) 8% 86%,
+    transparent 86%
+  );
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  padding-inline: 0.08em;
+}
+
+/* ===========================================================================
+   MOTION — directional hero entrance.
+   =========================================================================== */
 @keyframes fadeInLeft {
   from {
     opacity: 0;
@@ -109,6 +256,15 @@ html {
   }
   .animate-fade-in-right {
     animation: fadeInRight 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.15s both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-blue {
+    transition: none;
+  }
+  .btn-blue:hover {
+    transform: none;
   }
 }
 

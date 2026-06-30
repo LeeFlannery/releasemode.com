@@ -66,7 +66,7 @@ const iconClass =
     >
       <a href="/" class="flex items-center gap-2 font-semibold tracking-tight">
         <Mark class="text-ink size-7" />
-        Release Mode
+        <span class="wordmark">Release Mode</span>
       </a>
       <nav class="flex items-center gap-5 text-sm">
         <a
@@ -91,7 +91,7 @@ const iconClass =
     >
       <!-- Small screens: the mark sits behind the text (z-axis background). -->
       <Mark
-        class="pointer-events-none absolute top-1/2 right-0 w-[26rem] max-w-[85%] translate-x-[12%] -translate-y-1/2 text-white/80 lg:hidden"
+        class="hero-mark pointer-events-none absolute top-1/2 right-0 w-[26rem] max-w-[85%] translate-x-[12%] -translate-y-1/2 lg:hidden"
         aria-hidden="true"
       />
       <div class="relative z-10">
@@ -99,9 +99,13 @@ const iconClass =
           class="animate-fade-in-left text-4xl leading-[1.05] font-bold tracking-tight sm:text-6xl sm:leading-[1.03]"
         >
           Engineering&#8209;Led<br />
-          <span class="text-blue sm:whitespace-nowrap">Developer Relations</span>
+          <span class="hero-accent text-blue sm:whitespace-nowrap"
+            >Developer Relations</span
+          >
         </h1>
-        <p class="animate-fade-in-right text-ink/70 mt-6 max-w-xl text-lg sm:text-xl">
+        <p
+          class="animate-fade-in-right text-ink/70 mt-6 max-w-xl text-lg sm:text-xl"
+        >
           Digital transformation firms sell the meeting before the artifact.
           Engineering-led DevRel flips that: show the code, explain the
           tradeoffs, publish the docs, build the reference implementation, and
@@ -109,12 +113,12 @@ const iconClass =
         </p>
         <div class="animate-fade-in-left mt-10">
           <Button href={schedule} target="_blank">Let's talk</Button>
-          <p class="text-ink/60 mt-3 text-sm">30 minutes. No deck.</p>
+          <p class="meta text-ink/60 mt-3 text-sm">30 minutes. No deck.</p>
         </div>
       </div>
       <!-- Desktop: the mark gets its own column beside the text. -->
       <div class="animate-fade-in-right hidden lg:flex lg:justify-end">
-        <Mark class="w-full text-white" aria-label="Release Mode" />
+        <Mark class="hero-mark w-full" aria-label="Release Mode" />
       </div>
     </section>
   </div>
@@ -122,7 +126,7 @@ const iconClass =
   <!-- Offerings -->
   <section class="mx-auto max-w-5xl px-6 py-20 sm:px-8 sm:py-28 lg:px-12">
     <Reveal class="mx-auto mb-14 max-w-3xl text-center">
-      <p class="text-blue text-base font-bold tracking-wide uppercase">
+      <p class="eyebrow text-blue text-base font-bold tracking-wide uppercase">
         What I Ship
       </p>
       <h2 class="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
@@ -164,7 +168,7 @@ const iconClass =
   <!-- Why -->
   <section class="mx-auto max-w-5xl px-6 py-20 sm:px-8 sm:py-28 lg:px-12">
     <Reveal class="mx-auto mb-14 max-w-3xl text-center">
-      <p class="text-blue text-base font-bold tracking-wide uppercase">
+      <p class="eyebrow text-blue text-base font-bold tracking-wide uppercase">
         Why Work with Release Mode
       </p>
       <h2 class="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
@@ -214,7 +218,7 @@ const iconClass =
       </p>
       <div class="mt-8 flex flex-col items-center gap-3">
         <Button href={schedule} target="_blank">Let's talk</Button>
-        <p class="text-ink/70 text-sm">30 minutes. No deck.</p>
+        <p class="meta text-ink/70 text-sm">30 minutes. No deck.</p>
       </div>
     </Reveal>
   </section>
