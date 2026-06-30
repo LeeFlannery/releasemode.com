@@ -33,8 +33,11 @@
   --color-rule: rgb(10 10 10 / 0.1); /* hairline dividers / borders */
 }
 
-/* --- Theme: Press (editorial) -------------------------------------------- */
-html[data-theme='press'] {
+/* --- Themes: Press + Broadsheet (shared editorial base) ------------------
+   Broadsheet IS Press's typography/color/components, plus the decorative
+   "printed broadsheet" layer added at the bottom of this file. Anything scoped
+   to both themes via :is() is the shared editorial language. */
+html:is([data-theme='press'], [data-theme='broadsheet']) {
   --font-display: 'Archivo Variable', ui-sans-serif, system-ui, sans-serif;
   --font-body: 'Newsreader Variable', Georgia, 'Times New Roman', serif;
   --font-sans: var(--font-body);
@@ -132,7 +135,7 @@ h4 {
 
 /* --- Press control/surface variants -------------------------------------- */
 /* Editorial = square corners, hairline rules, no glow, mono labels. */
-html[data-theme='press'] .btn-blue {
+html:is([data-theme='press'], [data-theme='broadsheet']) .btn-blue {
   border-radius: 4px;
   box-shadow: none;
   font-family: var(--font-mono);
@@ -141,12 +144,12 @@ html[data-theme='press'] .btn-blue {
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
-html[data-theme='press'] .btn-blue:hover {
+html:is([data-theme='press'], [data-theme='broadsheet']) .btn-blue:hover {
   transform: none;
   box-shadow: none;
   filter: brightness(1.08);
 }
-html[data-theme='press'] .btn-ghost {
+html:is([data-theme='press'], [data-theme='broadsheet']) .btn-ghost {
   border-radius: 4px;
   border-color: var(--color-rule);
   font-family: var(--font-mono);
@@ -155,58 +158,58 @@ html[data-theme='press'] .btn-ghost {
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
-html[data-theme='press'] .btn-ghost:hover {
+html:is([data-theme='press'], [data-theme='broadsheet']) .btn-ghost:hover {
   background-color: rgb(22 20 15 / 0.04);
   border-color: rgb(22 20 15 / 0.45);
 }
-html[data-theme='press'] .card-hover {
+html:is([data-theme='press'], [data-theme='broadsheet']) .card-hover {
   border: 1px solid var(--color-rule);
   border-radius: 6px;
 }
-html[data-theme='press'] .card-hover:hover {
+html:is([data-theme='press'], [data-theme='broadsheet']) .card-hover:hover {
   transform: none;
   box-shadow: none;
   border-color: rgb(22 20 15 / 0.28);
 }
-html[data-theme='press'] .hero-mark {
+html:is([data-theme='press'], [data-theme='broadsheet']) .hero-mark {
   color: rgb(22 20 15 / 0.06);
 }
 
 /* --- Press typography (rate-card feel) ----------------------------------- */
 /* Heavy, tight Archivo headlines like the rate card's "Engagement Rates". */
-html[data-theme='press'] h1,
-html[data-theme='press'] h2,
-html[data-theme='press'] h3 {
+html:is([data-theme='press'], [data-theme='broadsheet']) h1,
+html:is([data-theme='press'], [data-theme='broadsheet']) h2,
+html:is([data-theme='press'], [data-theme='broadsheet']) h3 {
   font-weight: 800;
   letter-spacing: -0.02em;
 }
 
 /* Wordmark: uppercase, expanded, heavy Archivo with a Release-Blue dot. */
-html[data-theme='press'] .wordmark {
+html:is([data-theme='press'], [data-theme='broadsheet']) .wordmark {
   font-family: var(--font-display);
   font-weight: 800;
   font-stretch: 112%;
   text-transform: uppercase;
   letter-spacing: -0.005em;
 }
-html[data-theme='press'] .wordmark::after {
+html:is([data-theme='press'], [data-theme='broadsheet']) .wordmark::after {
   content: '.';
   color: var(--color-blue);
 }
 
 /* Eyebrows: mono, letter-spaced, Release-Blue, with the "// " prefix. */
-html[data-theme='press'] .eyebrow {
+html:is([data-theme='press'], [data-theme='broadsheet']) .eyebrow {
   font-family: var(--font-mono);
   font-weight: 700;
   font-size: 0.78rem;
   letter-spacing: 0.12em;
 }
-html[data-theme='press'] .eyebrow::before {
+html:is([data-theme='press'], [data-theme='broadsheet']) .eyebrow::before {
   content: '// ';
 }
 
 /* Meta lines (e.g. "30 minutes. No deck."): mono, Release-Blue. */
-html[data-theme='press'] .meta {
+html:is([data-theme='press'], [data-theme='broadsheet']) .meta {
   font-family: var(--font-mono);
   letter-spacing: 0.02em;
   color: var(--color-blue);
@@ -215,7 +218,7 @@ html[data-theme='press'] .meta {
 /* Hero phrase: Release yellow highlighter (ink text) instead of blue text, so
    both brand colors show. box-decoration-break keeps the swipe clean across
    the line wrap on small screens. */
-html[data-theme='press'] .hero-accent {
+html:is([data-theme='press'], [data-theme='broadsheet']) .hero-accent {
   color: var(--color-ink);
   background-image: linear-gradient(
     transparent 8%,
@@ -225,6 +228,86 @@ html[data-theme='press'] .hero-accent {
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
   padding-inline: 0.08em;
+}
+
+/* ===========================================================================
+   THEME: Broadsheet — Press, dressed as a printed technical broadsheet.
+   Adds a baseline grid, paper grain, corner crop marks, auto-numbered "//"
+   eyebrows, and the node-mark as a faint blue blueprint. Decorative layers
+   (.deco-grain/.deco-crop, in Layout) are hidden unless this theme is active.
+   =========================================================================== */
+
+/* Faint baseline grid behind the whole page. */
+html[data-theme='broadsheet'] body {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0 47px,
+    color-mix(in srgb, var(--color-rule) 60%, transparent) 47px 48px
+  );
+}
+
+/* Decorative layers: off by default, on for Broadsheet. */
+.deco-grain,
+.deco-crop {
+  display: none;
+}
+html[data-theme='broadsheet'] .deco-grain {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  filter: url(#rm-grain);
+}
+html[data-theme='broadsheet'] .deco-crop {
+  display: block;
+  position: fixed;
+  inset: 16px;
+  z-index: 60;
+  pointer-events: none;
+}
+html[data-theme='broadsheet'] .deco-crop::before,
+html[data-theme='broadsheet'] .deco-crop::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 0 solid var(--color-ink);
+}
+html[data-theme='broadsheet'] .deco-crop::before {
+  top: 0;
+  left: 0;
+  border-top-width: 1.5px;
+  border-left-width: 1.5px;
+}
+html[data-theme='broadsheet'] .deco-crop::after {
+  right: 0;
+  bottom: 0;
+  border-right-width: 1.5px;
+  border-bottom-width: 1.5px;
+}
+
+/* Auto-numbered eyebrows: "01  //  WHAT I SHIP". */
+html[data-theme='broadsheet'] body {
+  counter-reset: eb;
+}
+html[data-theme='broadsheet'] .eyebrow {
+  counter-increment: eb;
+}
+html[data-theme='broadsheet'] .eyebrow::before {
+  content: counter(eb, decimal-leading-zero) '  //  ';
+}
+
+/* Node-mark as a faint blue blueprint (vs. Press's faint ink watermark). */
+html[data-theme='broadsheet'] .hero-mark {
+  color: color-mix(in srgb, var(--color-blue) 24%, transparent);
+}
+
+/* A touch more drama on the masthead in Broadsheet. */
+html[data-theme='broadsheet'] .wordmark {
+  font-stretch: 118%;
 }
 
 /* ===========================================================================

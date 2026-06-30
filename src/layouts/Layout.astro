@@ -66,6 +66,22 @@ const canonical = Astro.site
   </head>
   <body>
     <slot />
+
+    <!-- Decorative layers for the Broadsheet theme (CSS hides them otherwise):
+         paper grain + corner crop marks. -->
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <filter id="rm-grain">
+        <feTurbulence
+          type="fractalNoise"
+          baseFrequency="0.9"
+          numOctaves="2"
+          stitchTiles="stitch"></feTurbulence>
+        <feColorMatrix type="saturate" values="0"></feColorMatrix>
+      </filter>
+    </svg>
+    <div class="deco-grain" aria-hidden="true"></div>
+    <div class="deco-crop" aria-hidden="true"></div>
+
     <ThemeToggle />
   </body>
 </html>
